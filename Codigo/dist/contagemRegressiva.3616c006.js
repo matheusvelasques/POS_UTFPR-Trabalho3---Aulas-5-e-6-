@@ -118,12 +118,15 @@ parcelRequire = (function (modules, cache, entry, globalName) {
 
   return newRequire;
 })({"js/contagemRegressiva.js":[function(require,module,exports) {
+//Selecionando os Dias, horas, minutos e segundos
 var contadorDias = document.querySelector('#days');
 var contadorHoras = document.querySelector('#hours');
 var contadorMinutos = document.querySelector('#minutes');
-var contadorSegundos = document.querySelector('#seconds');
-var linhaPrincipal = document.querySelector('#linhaPrincipal');
-var anoNovoTempo = new Date('December 01 2022 11:01:00'); //const anoNovoTempo = new Date('January 01 2023 00:00:00');
+var contadorSegundos = document.querySelector('#seconds'); //Selecionando a primeira linha da tabela
+
+var linhaPrincipal = document.querySelector('#linhaPrincipal'); //Seleciona a data "alvo"(Ano novo de 2023)
+
+var anoNovoTempo = new Date('January 01 2023 00:00:00'); //Adicionando um '0' quando o contador for menor que 10
 
 var getValor = function getValor(unit) {
   return unit < 10 ? '0' + unit : unit;
@@ -138,11 +141,12 @@ var inserirZeros = function inserirZeros(_ref) {
   contadorHoras.textContent = getValor(hours);
   contadorMinutos.textContent = getValor(minutes);
   contadorSegundos.textContent = getValor(seconds);
-};
+}; //Implementacao da funcao de contagem regressiva
+
 
 var updateCountdown = function updateCountdown() {
   var currentTime = new Date();
-  var difference = anoNovoTempo - currentTime;
+  var difference = anoNovoTempo - currentTime; //Vai executar a funcao somente de a diferenca entre a data 'alvo' e a atual for maior que zero
 
   if (difference > 0) {
     var seconds = Math.floor(difference / 1000) % 60;
@@ -162,12 +166,10 @@ var updateCountdown = function updateCountdown() {
     // contadorSegundos.textContent = '0' + seconds;
     // }
   } else {
+    //Vai chamar a funcao e adicionar a cor verde na primeira linha da tabela
     clearInterval(interval);
-    console.log(linhaPrincipal); //linhaPrincipal.classList.remove('bg-secondary')
-
     linhaPrincipal.classList.add('bg-success');
-  } // console.log({days, hours, minutes, seconds})
-
+  }
 }; //setTimeout(updateCountdown, 1000)
 
 
